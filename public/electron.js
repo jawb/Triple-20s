@@ -3,7 +3,7 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 const { init, skipFor, close } = require("./app");
 
-app.dock.hide();
+if (process.platform === "darwin") app.dock.hide();
 
 let lockWindow;
 let tray = null;

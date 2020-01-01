@@ -27,6 +27,10 @@
       "identity": null,
       "target": "dmg",
       "icon": "build/icon.icns"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": "nsis"
     }
   },
   "main": "public/electron.js",
@@ -39,6 +43,7 @@
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "yarn react-build && yarn electron-build",
+    "build-all": "yarn react-build && yarn electron-build -mw",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
