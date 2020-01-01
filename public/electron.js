@@ -3,7 +3,8 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 const { init, skipFor, close } = require("./app");
 
-if (process.platform === "darwin") app.dock.hide();
+const isMac = process.platform === "darwin";
+if (isMac) app.dock.hide();
 
 let lockWindow;
 let tray = null;
@@ -24,7 +25,7 @@ function showLockWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
   lockWindow.on("closed", () => (lockWindow = null));
-  lockWindow.setAutoHideCursor(true);
+  if (isMac) lockWindow.setAutoHideCursor(true);
   lockWindow.setKiosk(true);
   lockWindow.setFullScreen(true);
   lockWindow.on("blur", preventClose);
