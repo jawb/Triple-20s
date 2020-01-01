@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback } from "react";
 
 const App: React.FC = () => {
+  const snooze = useCallback(() => {
+    if (window.ipc) window.ipc.send("snooze");
+  }, []);
+
+  const skip = useCallback(() => {
+    if (window.ipc) window.ipc.send("skip");
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <p>
+        Take a break and focus your eyes on something 20 feet(6 meters) away for
+        20 seconds
+      </p>
+
+      <div className="emoji-btns-container">
+        <div className="emoji-btn-container" onClick={snooze}>
+          <div className="emoji-btn">
+            <span role="img" aria-label="Snooze">
+              😴
+            </span>
+          </div>
+          <div className="emoji-btn-title">Snooze for 5 minutes</div>
+        </div>
+        <div className="emoji-btn-container" onClick={skip}>
+          <div className="emoji-btn">
+            <span role="img" aria-label="Skip">
+              😬
+            </span>
+          </div>
+          <div className="emoji-btn-title">Skip break</div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

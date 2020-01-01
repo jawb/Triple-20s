@@ -1,5 +1,7 @@
 {
-  "name": "eye",
+  "name": "triple20s",
+  "description": "Triple 20s",
+  "author": "Issam Zoli",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,16 +12,34 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "cross-env": "^6.0.3",
+    "electron-is-dev": "^1.1.0",
+    "electron-settings": "^3.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
     "typescript": "~3.7.2"
   },
+  "build": {
+    "appId": "com.triple20s",
+    "productName": "Triple 20s",
+    "mac": {
+      "identity": null,
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    }
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +55,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.2",
+    "electron": "^7.1.7",
+    "electron-builder": "^21.2.0",
+    "wait-on": "^3.3.0"
   }
 }
